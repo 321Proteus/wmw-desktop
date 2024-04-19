@@ -18,6 +18,7 @@ int main() {
 
 
     while (true) {
+        
         HWND target = GetForegroundWindow();
 
         // Acquire the application name, time and PID
@@ -26,13 +27,12 @@ int main() {
 
         /* Check if the PID is not equal to the previously acquired PID
             so the output is only printed when the window changes */
-        if (data.pid != previousData.pid) {
 
-            if (data.name != "") cout << fullData << endl;
+        if (data.name != "") cout << fullData << endl;
+        previousData = data;
 
-            previousData = data;
+        Sleep(interval);
 
-        }
     }
 
     return 0;
