@@ -1,4 +1,5 @@
 *.o
 *.exe
 example/node_modules
-example/package_lock.json
+example/package-lock.json
+example/output.txt
