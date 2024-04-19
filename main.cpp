@@ -14,7 +14,7 @@ int main() {
     // ShowWindow(hwnd, SW_HIDE);
 
 
-    cout << windowStartup << '\n';
+    cout << windowStartup << endl;
 
 
     while (true) {
@@ -28,7 +28,7 @@ int main() {
             so the output is only printed when the window changes */
         if (data.pid != previousData.pid) {
 
-            if (data.name != "") cout << fullData << '\n';
+            if (data.name != "") cout << fullData << endl;
 
             previousData = data;
 
