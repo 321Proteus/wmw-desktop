@@ -1,2 +1,3 @@
 *.o
 *.exe
+example/node_modules
