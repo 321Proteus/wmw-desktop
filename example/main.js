@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 const express = require("express");
 
 const app = express()
-const wmw = spawn("test.exe", { stdio: "pipe" });
+const wmw = spawn("wmw_1.0-release.exe", { stdio: "pipe" });
 
 var text = "";
 
