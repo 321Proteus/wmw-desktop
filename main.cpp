@@ -40,6 +40,11 @@ int main() {
         
         HWND target = GetForegroundWindow();
 
+        char titleBuffer[256];
+        GetWindowTextA(target, titleBuffer, 256);
+
+        string title(titleBuffer);
+
         // Acquire the application name, time and PID
         activeWindowData data = fetchWindowInfo(target);
 
@@ -49,7 +54,7 @@ int main() {
         /* Check if the PID is not equal to the previously acquired PID
             so the output is only printed when the window changes */
 
-        if (data.name != "") cout << a << endl;
+        if (data.name != "") cout << a << " " << title << endl;
         previousData = data;
 
         Sleep(interval);

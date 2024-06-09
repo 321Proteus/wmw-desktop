@@ -42,4 +42,13 @@ namespace {
         {"devenv.exe", "Visual Studio 2019"} // This one has a weird name
 
     };
+
+
+
+    map <string, string> titleFormats = {
+        {"idea64.exe", "%project - %file"},
+        {"Code.exe", "%file - %project - Visual Studio Code"},
+        {"codeblocks.exe", "%file [%project] - Code::Blocks 20.03"},
+        {"devenv.exe", "%project - Microsoft Visual Studio"}
+    };
 }
