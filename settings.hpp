@@ -24,6 +24,8 @@ namespace {
         string time;
     };
 
+    string format = "%name (%pid) - %time";
+
 
     // A function to format the active window data to an array that could be used by the JS code
     string processInfo(activeWindowData data);
