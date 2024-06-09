@@ -74,6 +74,7 @@ activeWindowData fetchWindowInfo(HWND window) {
     info.pid = int(pid);
     info.name = appName;
     info.time = string(formattedTime);
+    info.pname = processName;
 
     return info;
 }

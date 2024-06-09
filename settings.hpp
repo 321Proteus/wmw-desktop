@@ -17,14 +17,15 @@ namespace {
 
 
     /* A structure for the fetched windows' data.
-        Consists of the window name, PID and the calculated window time. */
+        Consists of the window name, process name, PID and the calculated window time. */
     struct activeWindowData {
         int pid;
         string name;
         string time;
+        string pname;
     };
 
-    string format = "%name (%pid) - %time";
+    string format = "%name (%pid) - %time %pname";
 
 
     // A function to format the active window data to an array that could be used by the JS code
