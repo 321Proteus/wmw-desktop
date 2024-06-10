@@ -44,12 +44,12 @@ namespace {
 
     };
 
-
-
+    /* This is the list of applications' window title formats.
+    Regex definitions are allowed. %file and %project are replaced by (.*?) */
     map <string, string> titleFormats = {
-        {"idea64.exe", "%project - %file"},
+        {"idea64.exe", R"(^%project - %file$)"},
         {"Code.exe", "%file - %project - Visual Studio Code"},
-        {"codeblocks.exe", "%file [%project] - Code::Blocks 20.03"},
+        {"codeblocks.exe", R"(%file \[%project\] - Code::Blocks 20.03)"},
         {"devenv.exe", "%project - Microsoft Visual Studio"}
     };
 }
