@@ -13,7 +13,7 @@ namespace {
 
 
     // Translations
-    string windowStartup = "WMW v1.0 Started\n";
+    string windowStartup = "WMW v1.1 Started\n";
 
 
     /* A structure for the fetched windows' data.
