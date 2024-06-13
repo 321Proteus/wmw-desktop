@@ -35,6 +35,7 @@ void formatOutput(wstring& text, activeWindowData data) {
         else if (temp == L"%pna")    text.replace(idx, 6, pname_w);
         else if (temp == L"%fil")    text.replace(idx, 5, data.file);
         else if (temp == L"%pro")    text.replace(idx, 8, data.project);
+        
         else break;
         
     }
@@ -94,31 +95,39 @@ int main() {
 
     while (true) {
         
+        // Open the active window
         HWND target = GetForegroundWindow();
-
-        // Get the window title
-
-        wchar_t titleBuffer[256]{};
-        int y = GetWindowTextW(target, titleBuffer, 256);       
-
-        wstring title(titleBuffer);
-
-        wstring file, project;
 
         // Acquire the application name, time and PID
         activeWindowData data = fetchWindowInfo(target);
 
+        // Get the window title
+        wchar_t titleBuffer[256]{};
+        int y = GetWindowTextW(target, titleBuffer, 256);       
+        wstring title(titleBuffer);
+
+
+        /* Debug function to print unicode title letter by letter.
+        Useful for finding title formats */
+        // for (auto el : title) {
+        //     cout << (int)el << ' ';
+        // }
+
+        wstring file, project;
+
+        // Read file and project information from the title using the corresponding format
         getWindowTitleData(title, titleFormats[data.pname], file, project);
 
         data.file = file;
         data.project = project;
         
+
+        // Print the found values to the template from settings.hpp
         wstring a(format.begin(), format.end());
         formatOutput(a, data);
 
         /* Check if the PID is not equal to the previously acquired PID
             so the output is only printed when the window changes */
-
         if (data.name != "") wcout << a << endl;// << file << " " << project << endl;
         previousData = data;
 
