@@ -43,9 +43,10 @@ Default: `%name %time`
 
 # To Do
 
- - ~~Add file name/project name detection for the code editors - the window title usually contains them~~
+ - ~~Add file name/project name detection for the code editors - the window title usually contains them~~ 
  - Improve the example project by making it refresh automatically every second
  - ~~Add the ability to personalise the output structure in the config, e.g. adding the process name or the PID~~
+ - Add the ability to refresh the config without the need to build the app again - originally the current state was intended, but now I need more extended configuration
 
 Feel free to open a pull request if you develop a solution of one of these (new ideas are also welcome)!
 
