@@ -2,6 +2,9 @@
 #include <string>
 #include <regex>
 #include <windows.h>
+#include <io.h>
+#include <fcntl.h>
+#include <locale>
 
 #include "settings.hpp"
 #include "processInfo.cpp"
@@ -31,22 +34,22 @@ void formatOutput(string& text, activeWindowData data) {
 
 }
 
-bool getWindowTitleData(string& title, string format, string& file, string& project) {
+bool getWindowTitleData(wstring& title, wstring format, wstring& file, wstring& project) {
 
-    string regexString = format;
+    wstring regexString = format;
     
-    regexString = regex_replace(regexString, regex(R"(%file)"), "(.*?)");
-    regexString = regex_replace(regexString, regex(R"(%project)"), "(.*?)"); 
+    regexString = regex_replace(regexString, wregex(L"%file"), L"(.*?)");
+    regexString = L"^" + regex_replace(regexString, wregex(L"%project"), L"(.*?)") + L"$"; 
 
-    cout << regexString << " ";
+    // wcout << regexString << L" ";
 
-    smatch matches;
+    wsmatch matches;
 
-    if (regex_search(title, matches, regex(regexString))) {
+    if (regex_search(title, matches, wregex(regexString))) {
         
         if (matches.size() == 3) {
 
-            if (format.find("%file") < format.find("%project")) {
+            if (format.find(L"%file") < format.find(L"%project")) {
                 file = matches[1].str();
                 project = matches[2].str();
             } else {
@@ -58,9 +61,9 @@ bool getWindowTitleData(string& title, string format, string& file, string& proj
 
         } else if (matches.size() == 2) {
 
-            if (format.find("%file") != string::npos) {
+            if (format.find(L"%file") != string::npos) {
                 file = matches[1].str();
-            } else if (format.find("%project") != string::npos) {
+            } else if (format.find(L"%project") != string::npos) {
                 project = matches[1].str();
             }
 
@@ -72,12 +75,14 @@ bool getWindowTitleData(string& title, string format, string& file, string& proj
 }
 
 int main() {
-    // HWND hwnd = GetConsoleWindow();
-    // ShowWindow(hwnd, SW_HIDE);
+
+    _setmode(_fileno(stdout), 0x40000);
+
+    HWND hwnd = GetConsoleWindow();
+    ShowWindow(hwnd, SW_HIDE);
 
 
     cout << windowStartup << endl;
-
 
     while (true) {
         
@@ -85,11 +90,12 @@ int main() {
 
         // Get the window title
 
-        char titleBuffer[256];
-        GetWindowTextA(target, titleBuffer, 256);
-        string title(titleBuffer);
+        wchar_t titleBuffer[256]{};
+        int y = GetWindowTextW(target, titleBuffer, 256);       
 
-        string file, project;
+        wstring title(titleBuffer);
+
+        wstring file, project;
 
         // Acquire the application name, time and PID
         activeWindowData data = fetchWindowInfo(target);
@@ -102,7 +108,7 @@ int main() {
         /* Check if the PID is not equal to the previously acquired PID
             so the output is only printed when the window changes */
 
-        if (data.name != "") cout << file << " " << project << endl;
+        if (data.name != "") cout << a << endl;// << file << " " << project << endl;
         previousData = data;
 
         Sleep(interval);
