@@ -13,20 +13,26 @@ using namespace std;
 
 activeWindowData previousData;
 
-void formatOutput(string& text, activeWindowData data) {
+void formatOutput(wstring& text, activeWindowData data) {
 
     int idx = 0;
+
+    wstring time_w(data.time.begin(), data.time.end());
+    wstring name_w(data.name.begin(), data.name.end());
+    wstring pname_w(data.pname.begin(), data.pname.end());
+    string pidString = to_string(data.pid);
+    wstring pid_w(pidString.begin(), pidString.end());
 
     while (text.find('%') != string::npos) {
 
         idx = text.find('%', idx);
 
-        string temp = text.substr(idx, 4);
+        wstring temp = text.substr(idx, 4);
 
-        if      (temp == "%pid")    text.replace(idx, 4, to_string(data.pid));
-        else if (temp == "%nam")    text.replace(idx, 5, data.time);
-        else if (temp == "%tim")    text.replace(idx, 5, data.name);
-        else if (temp == "%pna")    text.replace(idx, 6, data.pname);
+        if      (temp == L"%pid")    text.replace(idx, 4, pid_w);
+        else if (temp == L"%nam")    text.replace(idx, 5, name_w);
+        else if (temp == L"%tim")    text.replace(idx, 5, time_w);
+        else if (temp == L"%pna")    text.replace(idx, 6, pname_w);
         else break;
         
     }
@@ -41,7 +47,7 @@ bool getWindowTitleData(wstring& title, wstring format, wstring& file, wstring& 
     regexString = regex_replace(regexString, wregex(L"%file"), L"(.*?)");
     regexString = L"^" + regex_replace(regexString, wregex(L"%project"), L"(.*?)") + L"$"; 
 
-    // wcout << regexString << L" ";
+    //swcout << regexString << L" ";
 
     wsmatch matches;
 
@@ -101,14 +107,17 @@ int main() {
         activeWindowData data = fetchWindowInfo(target);
 
         getWindowTitleData(title, titleFormats[data.pname], file, project);
+
+        data.file = file;
+        data.project = project;
         
-        string a = format;
+        wstring a(format.begin(), format.end());
         formatOutput(a, data);
 
         /* Check if the PID is not equal to the previously acquired PID
             so the output is only printed when the window changes */
 
-        if (data.name != "") cout << a << endl;// << file << " " << project << endl;
+        if (data.name != "") wcout << a << endl;// << file << " " << project << endl;
         previousData = data;
 
         Sleep(interval);
