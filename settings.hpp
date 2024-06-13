@@ -13,16 +13,21 @@ namespace {
 
 
     // Translations
-    string windowStartup = "WMW v1.0 Started\n";
+    string windowStartup = "WMW v1.1 Started\n";
 
 
     /* A structure for the fetched windows' data.
-        Consists of the window name, PID and the calculated window time. */
+        Consists of the window name, process name, PID and the calculated window time. */
     struct activeWindowData {
         int pid;
         string name;
         string time;
+        string pname;
+        wstring file;
+        wstring project;
     };
+
+    string format = "%name %time";
 
 
     // A function to format the active window data to an array that could be used by the JS code
@@ -39,5 +44,14 @@ namespace {
         {"codeblocks.exe", "CodeBlocks"},
         {"devenv.exe", "Visual Studio 2019"} // This one has a weird name
 
+    };
+
+    /* This is the list of applications' window title formats.
+    Regex definitions are allowed. %file and %project are replaced by (.*?) */
+    map <string, wstring> titleFormats = {
+        {"idea64.exe", L"%project \u2013 %file"}, // this one doesn't work for some reason
+        {"Code.exe", L"%file - %project - Visual Studio Code"},
+        {"codeblocks.exe", L"%file \\[%project\\] - Code::Blocks 20.03"},
+        {"devenv.exe", L"%project - Microsoft Visual Studio"}
     };
 }
