@@ -27,7 +27,7 @@ namespace {
         wstring project;
     };
 
-    string format = "%time %file %project";
+    string format = "%name %time";
 
 
     // A function to format the active window data to an array that could be used by the JS code
