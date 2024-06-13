@@ -33,6 +33,8 @@ void formatOutput(wstring& text, activeWindowData data) {
         else if (temp == L"%nam")    text.replace(idx, 5, name_w);
         else if (temp == L"%tim")    text.replace(idx, 5, time_w);
         else if (temp == L"%pna")    text.replace(idx, 6, pname_w);
+        else if (temp == L"%fil")    text.replace(idx, 5, data.file);
+        else if (temp == L"%pro")    text.replace(idx, 8, data.project);
         else break;
         
     }

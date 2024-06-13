@@ -23,9 +23,11 @@ namespace {
         string name;
         string time;
         string pname;
+        wstring file;
+        wstring project;
     };
 
-    string format = "%name (%pid) - %time %pname";
+    string format = "%time %file %project";
 
 
     // A function to format the active window data to an array that could be used by the JS code
